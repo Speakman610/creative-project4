@@ -22,7 +22,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #5b8ee0;
+  color: #faf5dc;
   display: flex;
   justify-content: space-around;
   flex-direction: column;
@@ -41,6 +41,7 @@
   /* background-color: red; */
   padding: 30px 50px;
   font-size: 18px;
+  /* height: 100%; */
 }
 
 #header a {
@@ -50,7 +51,7 @@
 }
 
 #header a:hover {
-  color: rgb(211, 211, 211);
+  color: #ffc268;
 }
 
 #header .header-object:hover {
@@ -58,7 +59,7 @@
 }
 
 #header a.router-link-exact-active {
-  color: #ffffff;
+  color: #faf5dc;
 }
 
 #content {
@@ -89,5 +90,7 @@
 body {
 	background-color: #061b3d;
 	color: White;
+  margin: 0;
+  box-sizing: border-box;
 }
 </style>
