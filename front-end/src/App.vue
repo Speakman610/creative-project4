@@ -17,6 +17,16 @@
 </template>
 
 <style>
+html {
+  box-sizing: border-box;
+}
+
+body {
+	background-color: #061b3d;
+	color: #faf5dc;
+  margin: 0;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -59,7 +69,8 @@
 }
 
 #header a.router-link-exact-active {
-  color: #faf5dc;
+  color: #0a2859;
+  background-color: #ffc268;
 }
 
 #content {
@@ -85,12 +96,5 @@
 
 #footer a:hover {
   color: #79aeff;
-}
-
-body {
-	background-color: #061b3d;
-	color: White;
-  margin: 0;
-  box-sizing: border-box;
 }
 </style>
