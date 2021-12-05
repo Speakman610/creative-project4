@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <img alt="Home" src="../assets/dices.png">
-    <h1>Welcome to the Custom Catalog</h1>
+    <h1>Welcome to the Custom Catalog!</h1>
     <div id="entertainment">
       <router-link to="/books"><div class="ent-object"><img alt="Books" src="../assets/open-book.png"><h3>Read a book</h3></div></router-link>
       <router-link to="/movies"><div class="ent-object"><img alt="Movies/TV" src="../assets/film-reel.png"><h3>Watch a movie</h3></div></router-link>
@@ -16,7 +16,7 @@
 <style scoped>
   #entertainment {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
   }
 
   #entertainment a {
