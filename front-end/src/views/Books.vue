@@ -6,19 +6,19 @@
         <input v-if="book.edit" v-model="book.title" placeholder="Title" v-on:keyup.enter="book.edit = false; editBook(book)">
         <h2 v-if="!book.edit" v-on:click="$set(book, 'edit', !book.edit)">{{book.title}}</h2>
         <input v-if="book.edit" v-model="book.author" placeholder="Author" v-on:keyup.enter="book.edit = false; editBook(book)">
-        <h4 v-if="!book.edit" v-on:click="$set(book, 'edit', !book.edit)">{{book.author}}</h4>
+        <h4 v-if="!book.edit" v-on:click="$set(book, 'edit', !book.edit)">by {{book.author}}</h4>
         <textarea v-if="book.edit" v-model="book.descr" placeholder="Description" v-on:keyup.enter="book.edit = false; editBook(book)"></textarea>
         <p v-if="!book.edit" v-on:click="$set(book, 'edit', !book.edit)">{{book.descr}}</p>
 
         <img alt="delete" v-if="book.edit" src="../assets/delete.png" @click="deleteBook(book)">
         <!-- <img alt="Edit book" src="../assets/edit.png"> -->
       </div>
-      <div class="new book" id="new-book">
-        <!-- <img alt="Add new book" src="../assets/add.png"> -->
-        <input v-model="title" placeholder="Title">
-        <input v-model="author" placeholder="Author">
-        <textarea v-model="descr" placeholder="Description"></textarea>
-        <button @click="add">Add</button>
+      <div class="new book">
+        <img alt="Add new book" id="add" v-if="!addNew" @click="addNew = true" src="../assets/add.png">
+        <input v-model="title" v-if="addNew" placeholder="Title">
+        <input v-model="author" v-if="addNew" placeholder="Author">
+        <textarea v-model="descr" v-if="addNew" placeholder="Description"></textarea>
+        <button v-if="addNew" @click="addBook">Add</button>
       </div>
     </section>
   </div>
@@ -36,14 +36,19 @@ export default {
       descr: "",
       books: [],
       findBook: null,
+      addNew: false,
     }
   },
   created() {
     this.getBooks();
   },
   methods: {
-    async add() {
+    async addBook() {
       try {
+        if (this.title == "") {
+          this.addNew = false;
+          return false;
+        }
         await axios.post('/api/books', {
           title: this.title,
           author: this.author,
@@ -52,6 +57,7 @@ export default {
         this.title = null;
         this.author = null;
         this.descr = null;
+        this.addNew = false;
         this.getBooks();
       } catch (error) {
         console.log(error);
@@ -126,6 +132,14 @@ export default {
   width: 20px;
   justify-self: flex-end;
   align-self: flex-end;
+}
+
+#add {
+  width: 100px;
+  padding-top: 30%;
+  justify-self: center;
+  align-self: center;
+  cursor: pointer;
 }
 
 .new button {
