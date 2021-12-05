@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Books from '../views/Books.vue'
+import Movies from '../views/Movies.vue'
+import Games from '../views/Games.vue'
 
 Vue.use(VueRouter)
 
@@ -12,7 +15,7 @@ const routes = [
   },
   {
     path: '/about',
-    name: 'About',
+    name: 'about',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -20,18 +23,18 @@ const routes = [
   },
   {
     path: '/books',
-    name: 'Books',
-    component: () => import('../views/Books.vue')
+    name: 'books',
+    component: Books
   },
   {
     path: '/movies',
-    name: 'Movies',
-    component: () => import('../views/Movies.vue')
+    name: 'movies',
+    component: Movies
   },
   {
     path: '/games',
-    name: 'Games',
-    component: () => import('../views/Games.vue')
+    name: 'games',
+    component: Games
   }
 ]
 

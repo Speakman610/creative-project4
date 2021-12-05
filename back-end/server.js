@@ -9,24 +9,23 @@ app.use(bodyParser.urlencoded({
 
 const mongoose = require('mongoose');
 
-// Create a scheme for items in the museum: a title and a path to an image.
 const bookSchema = new mongoose.Schema({
   title: String,
+  author: String,
   descr: String,
 });
 
-// Create a model for items in the museum.
 const Book = mongoose.model('Book', bookSchema);
 
 // connect to the database
-mongoose.connect('mongodb://127.0.0.1:27017/books', {
+mongoose.connect('mongodb://127.0.0.1:27017/catalog', {
   useNewUrlParser: true
 });
 
-// Create a new item in the museum: takes a title and a path to an image.
 app.post('/api/books', async (req, res) => {
   const book = new Book({
     title: req.body.title,
+    author: req.body.author,
     descr: req.body.descr,
   });
   try {
@@ -56,6 +55,7 @@ app.put('/api/books/:id', async (req, res) => {
       _id: req.params.id
     });
     book.title = req.body.title;
+    book.author = req.body.author;
     book.descr = req.body.descr;
     book.save();
     res.sendStatus(200);
@@ -65,7 +65,6 @@ app.put('/api/books/:id', async (req, res) => {
   }
 });
 
-// Get a list of all of the items in the museum.
 app.get('/api/books', async (req, res) => {
   try {
     let books = await Book.find();
