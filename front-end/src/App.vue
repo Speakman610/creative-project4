@@ -5,12 +5,13 @@
       <router-link to="/books"><div class="header-object">Books</div></router-link>
       <router-link to="/movies"><div class="header-object">Movies/TV</div></router-link>
       <router-link to="/games"><div class="header-object">Games</div></router-link>
-      <router-link to="/about"><div class="header-object">About</div></router-link>
+      <!-- <router-link to="/about"><div class="header-object">About</div></router-link> -->
     </div>
     <div id="content">
       <router-view/>
     </div>
     <div id="footer">
+      <p>In order to edit or remove a book, movie, or game from the catalog, click on any of the text of the object you wish to edit and an edit panel will appear. Press enter to stop editing.</p>
       <a href="https://github.com/Speakman610/creative-project4">https://github.com/Speakman610/creative-project4</a>
     </div>
   </div>
@@ -80,13 +81,14 @@ body {
 
 #footer {
   height: 50px;
-  padding: 10px 100px;
+  padding: 20px;
   background: #4f6777;
   font-size: 12px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex: initial;
+  flex-direction: column;
 }
 
 #footer a {
