@@ -1,11 +1,17 @@
 <template>
   <div class="books">
-    <h1>This is the books page</h1>
-    <section class="book-gallery">
+    <img id="logo" alt="Books" src="../assets/open-book.png">
+    <section id="book-gallery">
       <div class="book" v-for="book in books" :key="book.id">
-        <h2>{{book.title}}</h2>
-        <h4>{{book.author}}</h4>
-        <p>{{book.descr}}</p>
+        <input v-if="book.edit" v-model="book.title" placeholder="Title" v-on:keyup.enter="book.edit = false; editBook(book)">
+        <h2 v-if="!book.edit" v-on:click="$set(book, 'edit', !book.edit)">{{book.title}}</h2>
+        <input v-if="book.edit" v-model="book.author" placeholder="Author" v-on:keyup.enter="book.edit = false; editBook(book)">
+        <h4 v-if="!book.edit" v-on:click="$set(book, 'edit', !book.edit)">{{book.author}}</h4>
+        <textarea v-if="book.edit" v-model="book.descr" placeholder="Description" v-on:keyup.enter="book.edit = false; editBook(book)"></textarea>
+        <p v-if="!book.edit" v-on:click="$set(book, 'edit', !book.edit)">{{book.descr}}</p>
+
+        <img alt="delete" v-if="book.edit" src="../assets/delete.png" @click="deleteBook(book)">
+        <!-- <img alt="Edit book" src="../assets/edit.png"> -->
       </div>
       <div class="new book" id="new-book">
         <!-- <img alt="Add new book" src="../assets/add.png"> -->
@@ -29,6 +35,7 @@ export default {
       author: "",
       descr: "",
       books: [],
+      findBook: null,
     }
   },
   created() {
@@ -42,6 +49,10 @@ export default {
           author: this.author,
           descr: this.descr
         });
+        this.title = null;
+        this.author = null;
+        this.descr = null;
+        this.getBooks();
       } catch (error) {
         console.log(error);
       }
@@ -54,34 +65,71 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    async deleteBook(book) {
+      try {
+        if (confirm("Are you sure you want to delete \"" + book.title + "\"?")) {
+          await axios.delete("/api/books/" + book._id);
+          this.getBooks();
+          return true;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async editBook(book) {
+      try {
+        await axios.put("/api/books/" + book._id, {
+          title: book.title,
+          author: book.author,
+          descr: book.descr,
+        });
+        this.getBooks();
+        return true;
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
+  },
 }
 </script>
 
 
 <style scoped>
+#logo {
+  width: 100px;
+  padding: 0 0 20px;
+}
+
+#book-gallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
 .book {
   background-color: #0a2859;
-	height: 210px;
-	width: 100%;
-  margin-bottom: 20px;
-	padding: 10px;
+	height: auto;
+  min-height: 275px;
+	width: 275px;
+  margin: 5px;
+	padding: 20px;
 	text-align: left;
-	border: #061b3d;
-	border-style: solid;
+	border: 1px solid #061b3d;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
 }
 
-.new button {
+.book img {
+  width: 20px;
+  justify-self: flex-end;
   align-self: flex-end;
 }
 
-.book img {
-  width: 50%;
-  height: auto;
+.new button {
+  align-self: flex-end;
 }
 
 input,
@@ -95,5 +143,4 @@ textarea {
   height: 100%;
   max-width: 100%;
 }
-
 </style>

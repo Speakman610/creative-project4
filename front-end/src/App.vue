@@ -74,7 +74,7 @@ body {
 }
 
 #content {
-  padding: 20px 100px;
+  padding: 20px;
   min-height: 500px;
 }
 
